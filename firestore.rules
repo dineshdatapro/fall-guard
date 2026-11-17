@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function metadataOnly() {
+      return request.resource.data.keys().hasOnly([
+          'patientId',
+          'patientLabel',
+          'deviceId',
+          'confidence',
+          'status',
+          'detector',
+          'modelVersion',
+          'features',
+          'countdownMs',
+          'clientTime',
+          'createdAt'
+        ])
+        && request.resource.data.patientId is string
+        && request.resource.data.patientId.size() > 0
+        && request.resource.data.patientId.size() < 80
+        && request.resource.data.patientLabel is string
+        && request.resource.data.patientLabel.size() < 80
+        && request.resource.data.deviceId is string
+        && request.resource.data.deviceId.size() > 0
+        && request.resource.data.deviceId.size() < 80
+        && request.resource.data.confidence is number
+        && request.resource.data.confidence >= 0
+        && request.resource.data.confidence <= 1
+        && request.resource.data.status in ['confirmed', 'cancelled']
+        && request.resource.data.detector in ['heuristic', 'tflite']
+        && (request.resource.data.modelVersion == null || request.resource.data.modelVersion is string)
+        && request.resource.data.countdownMs is number
+        && request.resource.data.clientTime is number
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.features.keys().hasOnly([
+          'peakHipVelocity',
+          'torsoAngleDeg',
+          'aspectRatio',
+          'inactivityMs',
+          'hipDrop'
+        ]);
+    }
+
+    match /fallEvents/{eventId} {
+      allow read: if true;
+      allow create: if metadataOnly();
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['alertStatus', 'alertSentAt']);
+      allow delete: if false;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "synthetic-v1",
+  "threshold": 0.5,
+  "input": [
+    1,
+    24,
+    6
+  ],
+  "channels": [
+    "hipY",
+    "hipVy",
+    "torsoAngleNorm",
+    "aspect",
+    "motion",
+    "trunkLength"
+  ],
+  "note": "Trained on synthetic kinematics and the simulator fixtures. Replace after training on UR Fall or Le2i."
+}

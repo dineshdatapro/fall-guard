@@ -1,0 +1,14 @@
+{
+  "windowSteps": 24,
+  "windowMs": 2400,
+  "sampleHz": 10,
+  "threshold": 0.5,
+  "channels": [
+    "hipY",
+    "hipVy",
+    "torsoAngleNorm",
+    "aspect",
+    "motion",
+    "trunkLength"
+  ]
+}
