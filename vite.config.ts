@@ -16,8 +16,8 @@ export default defineConfig({
         short_name: "KinAlert",
         description:
           "On-device fall detection with caregiver alerts. Video never leaves the phone.",
-        theme_color: "#0e6b64",
-        background_color: "#f3efe6",
+        theme_color: "#f4f7f5",
+        background_color: "#f4f7f5",
         display: "standalone",
         start_url: "/",
         lang: "en",

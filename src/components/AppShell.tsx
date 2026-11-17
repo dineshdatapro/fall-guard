@@ -1,9 +1,10 @@
-import { ShieldCheck } from "lucide-react";
+import { ClipboardList, ShieldCheck, Watch } from "lucide-react";
 import { NavLink, Outlet } from "react-router";
+import { ThemeToggle } from "./ThemeToggle.tsx";
 
-const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
-    isActive ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"
+const tabClass = ({ isActive }: { isActive: boolean }) =>
+  `flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+    isActive ? "text-primary" : "text-muted-foreground"
   }`;
 
 export function AppShell() {
@@ -15,37 +16,38 @@ export function AppShell() {
       >
         Skip to content
       </a>
-      <header className="border-b border-border/80 bg-card/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3 md:px-8">
-          <div className="flex min-w-0 items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-primary-foreground">
-              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <div className="min-w-0">
-              <p className="font-display text-xl leading-none">KinAlert</p>
-              <p className="mt-1 text-xs text-muted-foreground">Fall watch for the phone. Alerts for the caregiver.</p>
-            </div>
+      <header className="safe-top sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+            <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <div className="min-w-0">
+            <p className="font-display text-lg leading-none tracking-tight">KinAlert</p>
           </div>
-          <nav className="flex items-center gap-1" aria-label="Primary">
-            <NavLink to="/" className={linkClass} end>
-              Phone watch
-            </NavLink>
-            <NavLink to="/care" className={linkClass}>
-              Caregiver desk
-            </NavLink>
-          </nav>
-          <p className="ml-auto rounded-full border border-primary/20 bg-accent px-3 py-1 text-xs font-semibold text-primary">
-            Video stays on this phone
+          <p className="ml-auto hidden rounded-full bg-safe-bg px-2.5 py-1 text-xs font-semibold text-safe sm:inline">
+            On this phone
           </p>
+          <ThemeToggle />
         </div>
       </header>
-      <main id="main" className="mx-auto max-w-6xl px-4 py-6 md:px-8">
+      <main id="main" className="mx-auto min-h-[calc(100dvh-3.5rem)] max-w-6xl pb-[calc(4.5rem+env(safe-area-inset-bottom))]">
         <Outlet />
       </main>
-      <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs leading-relaxed text-muted-foreground md:px-8">
-        Prototype for an M.Tech demonstration. KinAlert is not a medical device and must not be the only way someone
-        calls for help.
-      </footer>
+      <nav
+        aria-label="Primary"
+        className="tabbar fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card"
+      >
+        <div className="mx-auto flex max-w-lg">
+          <NavLink to="/" end className={tabClass}>
+            <Watch className="h-5 w-5" aria-hidden="true" />
+            Watch
+          </NavLink>
+          <NavLink to="/care" className={tabClass}>
+            <ClipboardList className="h-5 w-5" aria-hidden="true" />
+            Desk
+          </NavLink>
+        </div>
+      </nav>
     </div>
   );
 }

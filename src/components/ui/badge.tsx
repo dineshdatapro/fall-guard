@@ -2,21 +2,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 import { cn } from "../../lib/utils.ts";
 
-const badgeVariants = cva(
-  "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold",
-  {
-    variants: {
-      variant: {
-        default: "border-transparent bg-primary/10 text-primary",
-        alert: "border-transparent bg-destructive/10 text-destructive",
-        muted: "border-transparent bg-secondary text-muted-foreground",
-        warn: "border-transparent bg-amber-100 text-amber-800",
-        outline: "border-border text-foreground",
-      },
+const badgeVariants = cva("inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold", {
+  variants: {
+    variant: {
+      default: "bg-safe-bg text-safe",
+      alert: "bg-alert-bg text-alert",
+      warn: "bg-warn-bg text-warn",
+      cancel: "bg-cancel-bg text-cancel",
+      muted: "bg-secondary text-muted-foreground",
+      outline: "border border-border text-foreground",
     },
-    defaultVariants: { variant: "default" },
   },
-);
+  defaultVariants: { variant: "default" },
+});
 
 export function Badge({
   className,

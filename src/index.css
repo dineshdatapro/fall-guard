@@ -1,22 +1,86 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --color-background: #f3efe6;
-  --color-foreground: #1a2332;
-  --color-card: #fffcf7;
-  --color-card-foreground: #1a2332;
-  --color-primary: #0e6b64;
-  --color-primary-foreground: #f4fffd;
-  --color-secondary: #efe8dc;
-  --color-secondary-foreground: #1a2332;
-  --color-muted: #e7e0d4;
-  --color-muted-foreground: #5c6570;
-  --color-destructive: #c2412d;
-  --color-border: #e2d9cc;
-  --color-ring: #0e6b64;
-  --color-accent: #e5f4f1;
+:root {
+  color-scheme: light;
+  --bg: #f4f7f5;
+  --fg: #12211c;
+  --card: #ffffff;
+  --card-fg: #12211c;
+  --primary: #0c5f4c;
+  --primary-fg: #f4fffb;
+  --secondary: #e6eeea;
+  --secondary-fg: #12211c;
+  --muted: #e7eeea;
+  --muted-fg: #3e524b;
+  --border: #d3ddd8;
+  --ring: #0c5f4c;
+  --safe: #0c5f4c;
+  --safe-bg: #e5f6ef;
+  --warn: #7a4e00;
+  --warn-bg: #fff3d6;
+  --alert: #9d2218;
+  --alert-fg: #ffffff;
+  --alert-bg: #fdeceb;
+  --cancel: #3a4650;
+  --cancel-bg: #eef2f4;
+  --stage: #101816;
+  --elevation: 0 1px 2px rgb(18 33 28 / 0.05), 0 10px 28px rgb(18 33 28 / 0.06);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101614;
+  --fg: #e8f2ec;
+  --card: #18211d;
+  --card-fg: #e8f2ec;
+  --primary: #3dbe9a;
+  --primary-fg: #04241b;
+  --secondary: #24302b;
+  --secondary-fg: #e8f2ec;
+  --muted: #24302b;
+  --muted-fg: #c5d5cc;
+  --border: #2d3b35;
+  --ring: #3dbe9a;
+  --safe: #8ee0c2;
+  --safe-bg: #14352c;
+  --warn: #ffd27a;
+  --warn-bg: #3a2c12;
+  --alert: #ffb1aa;
+  --alert-fg: #2a0d0b;
+  --alert-bg: #3c1c1a;
+  --cancel: #d5dee6;
+  --cancel-bg: #24303a;
+  --stage: #0b100e;
+  --elevation: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px rgb(0 0 0 / 0.28);
+}
+
+@theme inline {
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-fg);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-fg);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-safe: var(--safe);
+  --color-safe-bg: var(--safe-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-alert: var(--alert);
+  --color-alert-foreground: var(--alert-fg);
+  --color-alert-bg: var(--alert-bg);
+  --color-cancel: var(--cancel);
+  --color-cancel-bg: var(--cancel-bg);
+  --color-stage: var(--stage);
+  --shadow-card: var(--elevation);
+  --radius-card: 1rem;
 }
 
 html,
@@ -27,12 +91,42 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
 }
 
 button,
 input {
   font: inherit;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.tabbar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sheet-rise {
+  animation: sheet-rise 180ms ease-out;
+}
+
+@keyframes sheet-rise {
+  from {
+    transform: translateY(10px);
+    opacity: 0.6;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-rise {
+    animation: none;
+  }
 }
